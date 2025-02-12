@@ -1,5 +1,5 @@
 import { registerAs } from '@nestjs/config';
-import { UsersEntity } from 'src/users/users.entity';
+import { Users } from 'src/users/users.entity';
 
 export default registerAs('database', () => ({
   type: process.env.DATABASE_TYPE,
@@ -8,7 +8,7 @@ export default registerAs('database', () => ({
   username: process.env.DATABASE_USERNAME,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_DATABASE,
-  entities: [UsersEntity],
+  entities: [Users],
   migrations: [__dirname + '/../../migrations/**/*{.js,.ts}'],
   synchronize: true,
 }));

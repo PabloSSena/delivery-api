@@ -4,15 +4,15 @@ import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { CreateUserResposeDTO } from './dto/create-users-response.dto.ts';
-import { UsersEntity } from './users.entity';
+import { Users } from './users.entity';
 @Injectable()
 export class UsersService {
   /**
    *
    */
   constructor(
-    @InjectRepository(UsersEntity)
-    private readonly UsersRepository: Repository<UsersEntity>,
+    @InjectRepository(Users)
+    private readonly UsersRepository: Repository<Users>,
   ) {}
 
   async findOne(username: string) {
@@ -24,7 +24,7 @@ export class UsersService {
   async createUser(userDto: CreateUserDTO): Promise<CreateUserResposeDTO> {
     const hashedPassword = await bcrypt.hash(userDto.password, 10);
     const user = this.UsersRepository.create({
-      ...CreateUserDTO,
+      ...userDto,
       password: hashedPassword,
     });
     const newUser = await this.UsersRepository.save(user);

@@ -3,7 +3,7 @@ import { Public } from 'src/decorators/public.decorator';
 import { AuthService } from './auth.service';
 import { AuthPayloadDto } from './dto/auth.dto';
 
-@Controller('auth')
+@Controller('api/auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
