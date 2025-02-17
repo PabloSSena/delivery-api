@@ -19,6 +19,11 @@ export class AddressController {
     return this.addressService.findAll();
   }
 
+  @Get('/userId/:id')
+  async findByUserId(@Param() id: number) {
+    return this.addressService.findByUserId(id);
+  }
+
   @Delete(':id')
   async remove(@Param('id') id: number) {
     return this.addressService.remove(id);
