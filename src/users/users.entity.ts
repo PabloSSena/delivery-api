@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Address } from 'src/address/address.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Users {
@@ -18,4 +19,8 @@ export class Users {
 
   @Column({ name: 'password' })
   password: string;
+
+  // Relacionamento 1:N com Address
+  @OneToMany(() => Address, (address) => address.user)
+  addresses: Address[];
 }

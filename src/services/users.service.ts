@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
-import { CreateUserDTO } from './dto/create-user.dto';
-import { CreateUserResposeDTO } from './dto/create-users-response.dto.ts';
-import { Users } from './users.entity';
+import { CreateUserDTO } from '../users/dto/create-user.dto';
+import { CreateUserResposeDTO } from '../users/dto/create-users-response.dto.ts';
+import { Users } from '../users/users.entity';
 @Injectable()
 export class UsersService {
   /**
@@ -27,8 +27,12 @@ export class UsersService {
       ...userDto,
       password: hashedPassword,
     });
-    const newUser = await this.UsersRepository.save(user);
-    return newUser;
+    await this.UsersRepository.save(user);
+    return {
+      username: userDto.username,
+      firstName: userDto.firstName,
+      lastName: userDto.lastName,
+    };
   }
 
   async findAll() {
