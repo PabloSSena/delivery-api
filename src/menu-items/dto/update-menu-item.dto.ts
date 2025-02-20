@@ -3,25 +3,25 @@ import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
 export class UpdateMenuItemDTO {
   @IsOptional()
   @IsString()
-  codigo?: string;
+  id?: string;
 
   @IsOptional()
   @IsString()
-  descricao?: string;
+  name?: string;
 
   @IsOptional()
   @IsNumber()
-  preco?: number;
+  price?: number;
 
   @IsOptional()
   @IsString()
-  detalhes?: string;
+  description?: string;
 
   @IsOptional()
   @IsString()
-  imagem?: string;
+  imageUrl?: string;
 
   @IsOptional()
   @IsBoolean()
-  carrinho?: boolean;
+  on_little_car?: boolean;
 }

@@ -8,6 +8,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { DatabaseConfig } from './config';
+import { Menu_items } from './menu-items/menu-item.entity';
+import { MenuItemsModule } from './menu-items/menu-items.module';
 import { Users } from './users/users.entity';
 import { UsersModule } from './users/users.module';
 
@@ -25,10 +27,11 @@ import { UsersModule } from './users/users.module';
       }),
       inject: [ConfigService],
     }),
-    TypeOrmModule.forFeature([Users, Address]),
+    TypeOrmModule.forFeature([Users, Address, Menu_items]),
     AuthModule,
     UsersModule,
     AddressModule,
+    MenuItemsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
