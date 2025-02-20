@@ -1,22 +1,22 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('menu_items')
-export class MenuItem {
+@Entity()
+export class Menu_items {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ name: 'name' })
   name: string;
 
-  @Column()
+  @Column({ name: 'description' })
   description: string;
 
-  @Column()
+  @Column({ name: 'price' })
   price: number;
 
-  @Column()
+  @Column({ name: 'imageUrl' })
   imageUrl: string;
 
-  @Column()
+  @Column({ name: 'on_little_car' })
   on_little_car: boolean;
 }
