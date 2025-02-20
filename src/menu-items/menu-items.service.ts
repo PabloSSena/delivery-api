@@ -1,6 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+<<<<<<< HEAD
 import { Repository, DeepPartial } from 'typeorm';
+=======
+import { Repository } from 'typeorm';
+>>>>>>> 3ae6c8a5ea228b04defe1a83f94bcec1ce5f2045
 import { CreateMenuItemDTO } from './dto/create-menu-item.dto';
 import { UpdateMenuItemDTO } from './dto/update-menu-item.dto';
 import { MenuItem } from './menu-item.entity';
@@ -13,7 +17,11 @@ export class MenuItemsService {
   ) {}
 
   async createMenuItem(createMenuItemDTO: CreateMenuItemDTO): Promise<MenuItem> {
+<<<<<<< HEAD
     const newItem = this.menuItemsRepository.create(createMenuItemDTO as DeepPartial<MenuItem>);
+=======
+    const newItem = this.menuItemsRepository.create(createMenuItemDTO);
+>>>>>>> 3ae6c8a5ea228b04defe1a83f94bcec1ce5f2045
     return this.menuItemsRepository.save(newItem);
   }
 

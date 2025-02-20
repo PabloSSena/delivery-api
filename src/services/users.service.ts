@@ -1,10 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
 import { CreateUserDTO } from '../users/dto/create-user.dto';
 import { CreateUserResposeDTO } from '../users/dto/create-users-response.dto.ts';
+import { UpdateUserDTO } from './dto/update-user.dto';
 import { Users } from '../users/users.entity';
+
 @Injectable()
 export class UsersService {
   /**
@@ -42,4 +44,19 @@ export class UsersService {
   async remove(id: number) {
     return this.UsersRepository.delete(id);
   }
+
+  async updateUser(id: number, updateUserDto: UpdateUserDTO): Promise<Users> {
+    const user = await this.UsersRepository.findOneBy({ id });
+
+    if (!user) {
+      throw new NotFoundException('Usuário não encontrado');
+    }
+
+    if (updateUserDto.password) {
+      updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
+    }
+
+    await this.UsersRepository.update(id, updateUserDto);
+    return this.UsersRepository.findOneBy({ id });
+ }
 }
