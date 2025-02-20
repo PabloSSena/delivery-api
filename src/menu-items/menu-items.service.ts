@@ -1,24 +1,26 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeepPartial, Repository } from 'typeorm';
-import { CreateMenuItemDTO } from './dto/create-menu-item.dto';
-import { UpdateMenuItemDTO } from './dto/update-menu-item.dto';
-import { MenuItem } from './menu-item.entity';
+import { Repository } from 'typeorm';
+import { CreateMenuItemDTO } from './dto/create-menu-items.dto';
+import { UpdateMenuItemDTO } from './dto/update-menu-items.dto';
+import { MenuItem } from './menu-items.entity';
 
 @Injectable()
 export class MenuItemsService {
+  /**
+   *
+   */
   constructor(
     @InjectRepository(MenuItem)
     private readonly menuItemsRepository: Repository<MenuItem>,
   ) {}
 
-  async createMenuItem(
-    createMenuItemDTO: CreateMenuItemDTO,
-  ): Promise<MenuItem> {
-    const newItem = this.menuItemsRepository.create(
-      createMenuItemDTO as DeepPartial<MenuItem>,
-    );
-    return this.menuItemsRepository.save(newItem);
+  async createMenuItem(createMenuItemDTO: CreateMenuItemDTO): Promise<MenuItem> {
+    const newItem = this.menuItemsRepository.create({
+      ...createMenuItemDTO,
+    });
+    await this.menuItemsRepository.save(newItem);
+    return newItem;
   }
 
   async findAll(): Promise<MenuItem[]> {
@@ -33,10 +35,7 @@ export class MenuItemsService {
     return item;
   }
 
-  async updateMenuItem(
-    id: number,
-    updateMenuItemDTO: UpdateMenuItemDTO,
-  ): Promise<MenuItem> {
+  async updateMenuItem(id: number, updateMenuItemDTO: UpdateMenuItemDTO): Promise<MenuItem> {
     const item = await this.menuItemsRepository.findOneBy({ id });
     if (!item) {
       throw new NotFoundException('Item não encontrado');

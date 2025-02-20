@@ -11,6 +11,7 @@ import { DatabaseConfig } from './config';
 import { MenuItemsModule } from './menu-items/menu-items.module';
 import { Users } from './users/users.entity';
 import { UsersModule } from './users/users.module';
+import { MenuItem } from './menu-items/menu-items.entity';
 
 @Module({
   imports: [
@@ -26,7 +27,7 @@ import { UsersModule } from './users/users.module';
       }),
       inject: [ConfigService],
     }),
-    TypeOrmModule.forFeature([Users, Address]),
+    TypeOrmModule.forFeature([Users, Address, MenuItem]),
     AuthModule,
     UsersModule,
     AddressModule,
