@@ -1,26 +1,23 @@
 import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateMenuItemDTO {
-  @IsNotEmpty()
-  @IsString()
-  codigo: string;
 
   @IsNotEmpty()
   @IsString()
-  descricao: string;
+  name: string;
 
   @IsNotEmpty()
   @IsNumber()
-  preco: number;
+  price: number;
 
   @IsNotEmpty()
   @IsString()
-  detalhes: string;
+  description: string;
 
   @IsNotEmpty()
   @IsString()
-  imagem: string;
+  imageUrl: string;
 
   @IsBoolean()
-  carrinho: boolean;
+  on_little_car: boolean;
 }
