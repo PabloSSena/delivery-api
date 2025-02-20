@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
+import { UpdateUserDTO } from 'src/users/dto/update-user.dto';
 import { Repository } from 'typeorm';
 import { CreateUserDTO } from '../users/dto/create-user.dto';
 import { CreateUserResposeDTO } from '../users/dto/create-users-response.dto.ts';
-import { UpdateUserDTO } from './dto/update-user.dto';
 import { Users } from '../users/users.entity';
 
 @Injectable()
@@ -57,6 +57,6 @@ export class UsersService {
     }
 
     await this.UsersRepository.update(id, updateUserDto);
-    return this.UsersRepository.findOneBy({ id });
- }
+    return user;
+  }
 }

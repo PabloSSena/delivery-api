@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('menu_items')
 export class MenuItem {
@@ -16,10 +16,7 @@ export class MenuItem {
 
   @Column()
   imageUrl: string;
-<<<<<<< HEAD
 
   @Column()
   on_little_car: boolean;
-=======
->>>>>>> 3ae6c8a5ea228b04defe1a83f94bcec1ce5f2045
 }

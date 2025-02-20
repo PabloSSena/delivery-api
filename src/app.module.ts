@@ -8,9 +8,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { DatabaseConfig } from './config';
+import { MenuItemsModule } from './menu-items/menu-items.module';
 import { Users } from './users/users.entity';
 import { UsersModule } from './users/users.module';
-import { MenuItemsModule } from './menu-items/menu-items.module';
 
 @Module({
   imports: [
@@ -29,11 +29,8 @@ import { MenuItemsModule } from './menu-items/menu-items.module';
     TypeOrmModule.forFeature([Users, Address]),
     AuthModule,
     UsersModule,
-<<<<<<< Updated upstream
     AddressModule,
-=======
     MenuItemsModule,
->>>>>>> Stashed changes
   ],
   controllers: [AppController],
   providers: [AppService],
