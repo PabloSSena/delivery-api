@@ -1,9 +1,6 @@
 import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UpdateMenuItemDTO {
-  @IsOptional()
-  @IsString()
-  id?: string;
 
   @IsOptional()
   @IsString()
