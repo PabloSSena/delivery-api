@@ -10,6 +10,6 @@ export class AuthController {
   @Public()
   @Post()
   login(@Body() authPayload: AuthPayloadDto) {
-    return this.authService.signIn(authPayload.username, authPayload.password);
+    return this.authService.signIn(authPayload.email, authPayload.password);
   }
 }
