@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { CreateMenuItemDTO } from './dto/create-menu-item.dto';
 import { UpdateMenuItemDTO } from './dto/update-menu-item.dto';
 import { MenuItemsService } from './menu-items.service';
@@ -23,8 +31,16 @@ export class MenuItemsController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() updateMenuItemDTO: UpdateMenuItemDTO) {
+  async update(
+    @Param('id') id: number,
+    @Body() updateMenuItemDTO: UpdateMenuItemDTO,
+  ) {
     return this.menuItemsService.updateMenuItem(id, updateMenuItemDTO);
+  }
+
+  @Put('remove-all-from-cart')
+  async updateAllToOutOfCar() {
+    return this.menuItemsService.updateAllToOutOfCar();
   }
 
   @Delete(':id')

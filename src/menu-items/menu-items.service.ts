@@ -36,14 +36,30 @@ export class MenuItemsService {
     updateMenuItemDTO: UpdateMenuItemDTO,
   ): Promise<Menu_items> {
     const item = await this.menuItemsRepository.findOneBy({ id });
+
     if (!item) {
       throw new NotFoundException('Item não encontrado');
     }
-    const updatedItem = Object.assign(item, updateMenuItemDTO);
-    return this.menuItemsRepository.save(updatedItem);
+
+    // Atualiza apenas os campos necessários
+    Object.assign(item, updateMenuItemDTO);
+
+    return await this.menuItemsRepository.save(item);
+  }
+
+  async updateAllToOutOfCar(): Promise<void> {
+    const { affected } = await this.menuItemsRepository.update(
+      { on_little_car: true },
+      { on_little_car: false },
+    );
+
+    if (!affected) {
+      throw new NotFoundException('Sem itens no carrinho');
+    }
   }
 
   async remove(id: number): Promise<void> {
+    console.log('salve pabl');
     const item = await this.menuItemsRepository.findOneBy({ id });
     if (!item) {
       throw new NotFoundException('Item não encontrado');
