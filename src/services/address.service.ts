@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Address } from 'src/address/address.entity';
 import { CreateAddressResponseDTO } from 'src/address/dto/create-address-response.dto';
 import { CreateAddressDTO } from 'src/address/dto/create-address.dto';
+import { UpdateAddressDTO } from 'src/address/dto/update-address.dto';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -19,6 +20,19 @@ export class AddressService {
     return this.AddressRepository.find({
       where: { user: userId },
     });
+  }
+
+  async update(id: number, addressDto: UpdateAddressDTO): Promise<Address> {
+    const existingAddress = await this.AddressRepository.findOne({
+      where: { user: id },
+    });
+
+    if (!existingAddress) {
+      throw new NotFoundException('Endereço não encontrado');
+    }
+
+    const updatedAddress = Object.assign(existingAddress, addressDto);
+    return this.AddressRepository.save(updatedAddress);
   }
 
   async create(
