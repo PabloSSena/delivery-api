@@ -1,5 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { EmailNotification } from 'src/Observer/email.notification';
+import { NotificationSubject } from 'src/Observer/observer';
 import { Repository } from 'typeorm';
 import { CreateMenuItemDTO } from './dto/create-menu-item.dto';
 import { UpdateMenuItemDTO } from './dto/update-menu-item.dto';
@@ -7,14 +9,20 @@ import { Menu_items } from './menu-item.entity';
 
 @Injectable()
 export class MenuItemsService {
+  private notificationSubject: NotificationSubject;
   constructor(
     @InjectRepository(Menu_items)
     private readonly menuItemsRepository: Repository<Menu_items>,
-  ) {}
+  ) {
+    this.notificationSubject = new NotificationSubject();
+    const emailObserver = new EmailNotification();
+    this.notificationSubject.addObserver(emailObserver);
+  }
 
   async createMenuItem(
     createMenuItemDTO: CreateMenuItemDTO,
   ): Promise<Menu_items> {
+    this.notificationSubject = new NotificationSubject();
     // const newItem = this.menuItemsRepository.create(createMenuItemDTO);
     return this.menuItemsRepository.save(createMenuItemDTO);
   }
@@ -56,6 +64,9 @@ export class MenuItemsService {
     if (!affected) {
       throw new NotFoundException('Sem itens no carrinho');
     }
+    this.notificationSubject.notifyObservers(
+      'Seu pedido está sendo processado!',
+    );
   }
 
   async remove(id: number): Promise<void> {
