@@ -38,7 +38,7 @@ export class MenuItemsController {
     return this.menuItemsService.updateMenuItem(id, updateMenuItemDTO);
   }
 
-  @Put('remove-all-from-cart')
+  @Put()
   async updateAllToOutOfCar() {
     return this.menuItemsService.updateAllToOutOfCar();
   }
